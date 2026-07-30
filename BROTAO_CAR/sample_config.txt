@@ -1,0 +1,5 @@
+# VehicleCamera: VehicleCamera,sensor_id,name,position_x,position_y,range,heading,fov
+# RoadCamera: RoadCamera,sensor_id,name,position_x,position_y,range,roadside_id,covered_lanes
+
+VehicleCamera,S001,FrontCam,0,0,50,0,90
+RoadCamera,R001,CrossCam,60,30,35,R1,2
