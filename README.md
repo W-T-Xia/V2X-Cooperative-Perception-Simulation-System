@@ -379,4 +379,4 @@ MIT License
 
 ## Author
 
-夏文韬(Wentao Xia) | Student ID: 2353575 | Tongji University | June 30, 2026
+夏文韬(Wentao Xia) | Tongji University | June 30, 2026
