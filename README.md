@@ -1,46 +1,52 @@
 V2X Cooperative Perception Simulation System
+A C++ simulation system for Vehicle-to-Everything (V2X) cooperative perception, developed for the Object-Oriented Programming course at Tongji University.
+
 https://img.shields.io/badge/C%252B%252B-17-blue.svg
 https://img.shields.io/badge/CMake-3.10+-green.svg
 https://img.shields.io/badge/License-MIT-yellow.svg
 
-A C++ simulation system for V2X cooperative perception, demonstrating sensor fusion between onboard cameras and roadside cameras. Developed for the Object-Oriented Programming and Practice course at Tongji University.
+Overview
+This system simulates cooperative perception between onboard vehicle cameras and roadside cameras. It generates mock detection data, fuses detections from multiple sensors, and produces a unified global object list. The project demonstrates key OOP principles including inheritance, polymorphism, operator overloading, exception handling, and factory patterns.
 
-Course Requirements & Scoring
-Requirement	Points	Status
-Sensor class hierarchy (inheritance, polymorphism, virtual destructor, operator<<)	15pts	✓
-DetectedObject & operator overloading (==, +, <<)	10pts	✓
-Sensor management, factory pattern & exception handling	15pts	✓
-Fusion module (algorithm, 1.5m threshold, greedy strategy, perception extension)	20pts	✓
-Main program, fixed test scenario & file I/O	10pts	✓
-Code quality, naming, const/override, screenshots, documentation	20pts	✓
-Extension features (3 features for full marks)	10pts	✓ (3 features)
-Total	100pts	
-Extensions Completed (3/3 for full marks):
+Features
+Add and manage VehicleCamera and RoadCamera sensors
 
-SensorContainer<T> template container with ID lookup and sorting
+Simulate detection with random or fixed test data
 
-FusionLogger singleton with multi-level logging and RAII
+Fuse detections using greedy association algorithm (1.5m threshold)
 
-Fusion results export to file
+Fixed test scenario for reproducible verification
 
-Penalties Avoided:
+Save / load sensor configuration to text files
 
-Compilation failure (–30): ✓ Pass
+Three extension features: template container, logging module, fusion result export
 
-Code plagiarism >75% (–50): ✓ Original
+Course Requirements & Grading
+1. Sensor Class Hierarchy (15 pts) – Inheritance, polymorphism, virtual destructor, operator overloading – Complete
 
-No CMake (–15): ✓ CMake included
+2. DetectedObject & Operator Overloading (10 pts) – ==, +, << operators – Complete
+
+3. Sensor Management, Factory Pattern & Exception Handling (15 pts) – std::unique_ptr, factory function, custom exceptions – Complete
+
+4. Perception Fusion Module (20 pts) – Greedy fusion algorithm, 1.5m association threshold, perception range extension – Complete
+
+5. Main Program, Fixed Scenario & File I/O (10 pts) – Menu system, fixed test scenario, config save/load – Complete
+
+6. Code Quality & Documentation (20 pts) – Google Style Guide, naming conventions, comments, screenshots – Complete
+
+7. Extension Features (10 pts) – Three features implemented (SensorContainer, FusionLogger, result export) – Complete
+
+Penalties Avoided: Compilation failure (–30), plagiarism (–50), missing CMake (–15)
 
 Quick Start
-bash
 git clone https://github.com/W-T-Xia/V2X-Cooperative-Perception-Simulation-System.git
 cd V2X-Cooperative-Perception-Simulation-System
 mkdir build && cd build
 cmake ..
 make
 ./V2XFusion
+
 Usage
-text
 ========================================
  V2X Cooperative Perception System
  (Onboard + Roadside Sensor Fusion)
@@ -55,37 +61,30 @@ text
 8. Exit system
 9. Save fusion results to file
 ========================================
-Fixed Test Scenario
-Select option 3 → 2 to load the fixed test scenario for grading verification.
+Adding a Vehicle Camera:
 
-Sensors:
+Enter type: 1, then provide ID, name, position, range, heading, FOV.
 
-S001: VehicleCamera at (0,0), range=50m, heading=0°, FOV=90°
+Adding a Road Camera:
 
-R001: RoadCamera at (60,30), range=35m, roadside_id=R1, lanes=2
+Enter type: 2, then provide ID, name, position, range, roadside ID, covered lanes.
 
-Raw detections (4 total):
+Fixed Test Scenario:
 
-A: S001, ID=101, VEHICLE, (20,0), conf=0.90
+Select option 3, then option 2. The system loads:
 
-B1: S001, ID=102, VEHICLE, (38.2,7.6), conf=0.85
+S001: VehicleCamera at (0,0), range 50m, heading 0°, FOV 90°
 
-B2: R001, ID=201, VEHICLE, (38.8,8.1), conf=0.80
+R001: RoadCamera at (60,30), range 35m
 
-C: R001, ID=202, PEDESTRIAN, (58,8), conf=0.88
+Four targets: A (S001), B1 (S001), B2 (R001), C (R001)
 
-Expected fusion result (3 total):
+Expected fusion result: 3 objects (A, B fused, C). Target C at (58,8) is beyond vehicle range, demonstrating roadside extension.
 
-A: vehicle-only (ID=101)
-
-B: fused (ID=102, source "R001+S001", count=2)
-
-C: roadside-only, beyond line-of-sight (extends perception range)
 
 Configuration File
 Example sample_config.txt:
 
-txt
 # V2X Cooperative Perception - Sensor Configuration
 VehicleCamera,S001,FrontCam,0,0,50,0,90
 RoadCamera,R001,CrossCam,60,30,35,R1,2
@@ -105,9 +104,16 @@ text
     ├── SensorContainer.h
     ├── FusionLogger.h/cpp
     └── Exceptions.h
-Author
-Xia Wentao | Student ID: 2353575 | Tongji University | June 30, 2026
+Extension Features
+SensorContainer<T> – Generic container with add, findById, and sort functions.
+
+FusionLogger – Singleton logging with INFO/WARNING/ERROR levels, outputs to console and fusion.log, RAII compliant.
+
+Fusion Result Export – Save fused object lists to text files via menu option 9.
 
 License
-MIT License
+MIT License. See LICENSE file for details.
+
+Author
+Xia Wentao | Student ID: 2353575 | Tongji University | June 30, 2026
 
