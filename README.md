@@ -343,6 +343,7 @@ Fields:
 
 ```
 CMakeLists.txt
+CMakePresets.json
 sample_config.txt
 src/
   main.cpp
