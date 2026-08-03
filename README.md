@@ -379,4 +379,4 @@ MIT License
 
 ## Author
 
-夏文韬(Wentao Xia) | Tongji University | June 30, 2026
+夏文韬(Wen-Tao Xia) | Tongji University | June 30, 2026
